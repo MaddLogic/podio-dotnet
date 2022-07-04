@@ -9,7 +9,7 @@ namespace PodioAPI.Models
     public class ApplicationField
     {
         [JsonProperty("field_id", NullValueHandling = NullValueHandling.Ignore)]
-        public int? FieldId { get; set; }
+        public long? FieldId { get; set; }
 
         [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
         public string Type { get; set; }

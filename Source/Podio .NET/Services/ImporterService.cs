@@ -20,7 +20,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="fileId"></param>
         /// <returns></returns>
-        public async Task<ImporterInfo> GetInfo(int fileId)
+        public async Task<ImporterInfo> GetInfo(long fileId)
         {
             string url = string.Format("/importer/{0}/info", fileId);
             return await _podio.Get<ImporterInfo>(url);
@@ -37,7 +37,7 @@ namespace PodioAPI.Services
         /// <param name="tagsColumnId">The id of the column to read tags from, if any</param>
         /// <param name="appItemIdColumnId">The id of the column to read the app item id from, if any</param>
         /// <returns></returns>
-        public async Task<int> ImportAppItems(int fileId, int appId, List<ImportMappingField> mappings, string tagsColumnId = null,
+        public async Task<int> ImportAppItems(long fileId, long appId, List<ImportMappingField> mappings, string tagsColumnId = null,
             string appItemIdColumnId = null)
         {
             string url = string.Format("/importer/{0}/item/app/{1}", fileId, appId);
@@ -60,7 +60,7 @@ namespace PodioAPI.Services
         /// <param name="spaceId"></param>
         /// <param name="mappings">The mappings of the fields on the contact</param>
         /// <returns></returns>
-        public async Task<int> ImportSpaceContacts(int fileId, int spaceId, List<ImportMappingContactField> mappings)
+        public async Task<int> ImportSpaceContacts(long fileId, long spaceId, List<ImportMappingContactField> mappings)
         {
             string url = string.Format("/importer/{0}/contact/space/{1}", fileId, spaceId);
             dynamic requestData = new
@@ -79,7 +79,7 @@ namespace PodioAPI.Services
         /// <param name="row"></param>
         /// <param name="mappings"></param>
         /// <returns></returns>
-        public async Task<RowPreview> GetPreview(int fileId, string row, List<ImportMappingField> mappings)
+        public async Task<RowPreview> GetPreview(long fileId, string row, List<ImportMappingField> mappings)
         {
             string url = string.Format("/importer/{0}/preview/{1}", fileId, row);
             dynamic requestData = new

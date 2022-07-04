@@ -7,7 +7,7 @@ namespace PodioAPI.Models
     public class Task
     {
         [JsonProperty("task_id")]
-        public int TaskId { get; set; }
+        public long TaskId { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -49,7 +49,7 @@ namespace PodioAPI.Models
         public Push Push { get; set; }
 
         [JsonProperty("space_id")]
-        public int? SpaceId { get; set; }
+        public long? SpaceId { get; set; }
 
         [JsonProperty("link")]
         public string link { get; set; }

@@ -32,7 +32,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/notifications/star-notification-295910 </para>
         /// </summary>
         /// <param name="notificationId"></param>
-        public async Task<dynamic> StarNotification(int notificationId)
+        public async Task<dynamic> StarNotification(long notificationId)
         {
             string url = string.Format("/notification/{0}/star", notificationId);
              return await _podio.Post<dynamic>(url);
@@ -43,7 +43,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/notifications/un-star-notification-295911 </para>
         /// </summary>
         /// <param name="notificationId"></param>
-        public async Task<dynamic> UnStarNotification(int notificationId)
+        public async Task<dynamic> UnStarNotification(long notificationId)
         {
             string url = string.Format("/notification/{0}/star", notificationId);
              return await _podio.Delete<dynamic>(url);
@@ -58,7 +58,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="refType"></param>
         /// <param name="refId"></param>
-        public async Task<dynamic> MarkNotificationsAsViewedByRef(string refType, int refId)
+        public async Task<dynamic> MarkNotificationsAsViewedByRef(string refType, long refId)
         {
             string url = string.Format("/notification/{0}/{1}/viewed", refType, refId);
              return await _podio.Post<dynamic>(url);
@@ -69,7 +69,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/notifications/mark-notification-as-viewed-22436 </para>
         /// </summary>
         /// <param name="notificationId"></param>
-        public async Task<dynamic> MarkNotificationAsViewed(int notificationId)
+        public async Task<dynamic> MarkNotificationAsViewed(long notificationId)
         {
             string url = string.Format("/notification/{0}/viewed", notificationId);
              return await _podio.Post<dynamic>(url);
@@ -91,7 +91,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="notificationId"></param>
         /// <returns></returns>
-        public async Task<Notifications> GetNotification(int notificationId)
+        public async Task<Notifications> GetNotification(long notificationId)
         {
             string url = string.Format("/notification/{0}", notificationId);
             return  await _podio.Get<Notifications>(url);
@@ -129,7 +129,7 @@ namespace PodioAPI.Services
         /// <returns></returns>
         public async Task<List<Notifications>> GetNotifications(string contextType = null, DateTime? createdFrom = null,
             DateTime? createdTo = null, string direction = "incoming", int limit = 20, int offSet = 0,
-            bool? starred = null, string type = null, int? userId = null, bool? viewed = null,
+            bool? starred = null, string type = null, long? userId = null, bool? viewed = null,
             DateTime? viewedFrom = null)
         {
             string url = "/notification/";

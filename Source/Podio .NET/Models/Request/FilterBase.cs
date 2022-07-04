@@ -39,6 +39,6 @@ namespace PodioAPI.Models.Request
         ///   Space Id (To be used with Platform API)
         /// </summary>
         [JsonProperty("space_id", NullValueHandling = NullValueHandling.Ignore)]
-        public int? SpaceId { get; set; }
+        public long? SpaceId { get; set; }
     }
 }

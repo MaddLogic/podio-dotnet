@@ -15,7 +15,7 @@ namespace PodioAPI.Models
     public class FileColumn
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

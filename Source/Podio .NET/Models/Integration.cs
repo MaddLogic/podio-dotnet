@@ -7,10 +7,10 @@ namespace PodioAPI.Models
     public class Integration
     {
         [JsonProperty(PropertyName = "integration_id")]
-        public int? IntegrationId { get; set; }
+        public long? IntegrationId { get; set; }
 
         [JsonProperty(PropertyName = "app_id")]
-        public int? AppId { get; set; }
+        public long? AppId { get; set; }
 
         [JsonProperty(PropertyName = "status")]
         public string Status { get; set; }

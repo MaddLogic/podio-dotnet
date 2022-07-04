@@ -8,7 +8,7 @@ namespace PodioAPI.Models
     public class AppMarketShare
     {
         [JsonProperty("share_id")]
-        public int? ShareId { get; set; }
+        public long? ShareId { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }
@@ -50,7 +50,7 @@ namespace PodioAPI.Models
         public string Icon { get; set; }
 
         [JsonProperty("icon_id")]
-        public int? IconId { get; set; }
+        public long? IconId { get; set; }
 
         [JsonProperty("ratings")]
         public JObject Ratings { get; set; }

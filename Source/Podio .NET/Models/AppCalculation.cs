@@ -72,6 +72,6 @@ namespace PodioAPI.Models
         public string Label { get; set; }
 
         [JsonProperty("field_id")]
-        public int FieldId { get; set; }
+        public long FieldId { get; set; }
     }
 }

@@ -6,18 +6,18 @@ namespace PodioAPI.Utils.ApplicationFields
 {
     public class AppReferenceApplicationField : ApplicationField
     {
-        private IEnumerable<int> _referenceableTypes;
+        private IEnumerable<long> _referenceableTypes;
 
         /// <summary>
         ///     List of ids of the apps that can be referenced.
         /// </summary>
-        public IEnumerable<int> ReferenceableTypes
+        public IEnumerable<long> ReferenceableTypes
         {
             get
             {
                 if (_referenceableTypes == null)
                 {
-                    _referenceableTypes = this.GetSettingsAs<int>("referenceable_types");
+                    _referenceableTypes = this.GetSettingsAs<long>("referenceable_types");
                 }
                 return _referenceableTypes;
             }
