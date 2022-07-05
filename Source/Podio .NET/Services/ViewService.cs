@@ -20,11 +20,11 @@ namespace PodioAPI.Services
         /// <param name="appId"></param>
         /// <param name="viewCreateRequest"></param>
         /// <returns></returns>
-        public int CreateView(int appId, ViewCreateUpdateRequest request)
+        public long CreateView(long appId, ViewCreateUpdateRequest request)
         {
             string url = string.Format("/view/app/{0}/", appId);
             dynamic response = _podio.Post<dynamic>(url, request);
-            return (int) response["view_id"];
+            return (long) response["view_id"];
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace PodioAPI.Services
         /// <param name="appId"></param>
         /// <param name="viewIdOrName"></param>
         /// <returns></returns>
-        public View GetView(int appId, string viewIdOrName)
+        public View GetView(long appId, string viewIdOrName)
         {
             string url = string.Format("/view/app/{0}/{1}", appId, viewIdOrName);
             return _podio.Get<View>(url);
@@ -48,7 +48,7 @@ namespace PodioAPI.Services
         /// <param name="appId"></param>
         /// <param name="includeStandardViews">True if standard views should be included, false otherwise. Default value: false</param>
         /// <returns></returns>
-        public List<View> GetViews(int appId, bool includeStandardViews = false)
+        public List<View> GetViews(long appId, bool includeStandardViews = false)
         {
             string url = string.Format("/view/app/{0}/", appId);
             var requestData = new Dictionary<string, string>
@@ -63,7 +63,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/views/delete-view-27454 </para>
         /// </summary>
         /// <param name="viewId"></param>
-        public void DeleteView(int viewId)
+        public void DeleteView(long viewId)
         {
             string url = string.Format("/view/{0}", viewId);
             _podio.Delete<dynamic>(url);
@@ -75,7 +75,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="request"></param>
-        public void UpdateLastView(int appId, ViewCreateUpdateRequest request)
+        public void UpdateLastView(long appId, ViewCreateUpdateRequest request)
         {
             string url = string.Format("/view/app/{0}/last", appId);
             _podio.Put<dynamic>(url, request);
@@ -87,7 +87,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="viewId"></param>
         /// <param name="request"></param>
-        public void UpdateView(int viewId, ViewCreateUpdateRequest request)
+        public void UpdateView(long viewId, ViewCreateUpdateRequest request)
         {
             string url = string.Format("/view/{0}", viewId);
             _podio.Put<dynamic>(url, request);

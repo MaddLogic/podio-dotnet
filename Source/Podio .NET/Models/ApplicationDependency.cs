@@ -13,21 +13,21 @@ namespace PodioAPI.Models
         [JsonProperty("dependencies")]
         private object DependencyObject { get; set; }
 
-        public Dictionary<int, List<int>> Dependencies
+        public Dictionary<long, List<long>> Dependencies
         {
             get { return LoadDependencies(); }
         }
 
-        private Dictionary<int, List<int>> LoadDependencies()
+        private Dictionary<long, List<long>> LoadDependencies()
         {
-            var dictionaryToLoad = new Dictionary<int, List<int>>();
+            var dictionaryToLoad = new Dictionary<long, List<long>>();
             var reflectedValuesDictionay = (Dictionary<string, object>) this.GetPropertyValue("DependencyObject");
             if (reflectedValuesDictionay.Count > 0)
             {
                 foreach (var item in reflectedValuesDictionay)
                 {
                     var dependencyValueJArray = (JArray) item.Value;
-                    dictionaryToLoad.Add(int.Parse(item.Key), dependencyValueJArray.ToObject<List<int>>());
+                    dictionaryToLoad.Add(long.Parse(item.Key), dependencyValueJArray.ToObject<List<long>>());
                 }
             }
             return dictionaryToLoad;

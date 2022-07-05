@@ -510,7 +510,7 @@ namespace PodioAPI
         /// <param name="appId">AppId</param>
         /// <param name="appToken">AppToken</param>
         /// <returns>PodioOAuth object with OAuth data</returns>
-        public PodioOAuth AuthenticateWithApp(int appId, string appToken)
+        public PodioOAuth AuthenticateWithApp(long appId, string appToken)
         {
             var authRequest = new Dictionary<string, string>
             {

@@ -23,7 +23,7 @@ namespace PodioAPI.Services
         /// <param name="postOnNewApp">True if new apps should be announced with a status update, false otherwise</param>
         /// <param name="postOnNewMember">True if new members should be announced with a status update, false otherwise</param>
         /// <returns></returns>
-        public int CreateSpace(int orgId, string name, string privacy = null, bool? autoJoin = null,
+        public long CreateSpace(long orgId, string name, string privacy = null, bool? autoJoin = null,
             bool? postOnNewApp = null, bool? postOnNewMember = null)
         {
             string url = "/space/";
@@ -37,7 +37,7 @@ namespace PodioAPI.Services
                 post_on_new_member = postOnNewMember
             };
             dynamic respone = _podio.Post<dynamic>(url, requestData);
-            return (int) respone["space_id"];
+            return (long) respone["space_id"];
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace PodioAPI.Services
         /// <param name="autoJoin">True if new employees should be joined automatically, false otherwise, defaults to false</param>
         /// <param name="postOnNewApp">True if new apps should be announced with a status update, false otherwise</param>
         /// <param name="postOnNewMember">True if new members should be announced with a status update, false otherwise</param>
-        public void UpdateSpace(int spaceId, string name = null, string urlLabel = null, string privacy = null,
+        public void UpdateSpace(long spaceId, string name = null, string urlLabel = null, string privacy = null,
             bool? autoJoin = null, bool? postOnNewApp = null, bool? postOnNewMember = null)
         {
             string url = string.Format("/space/{0}", spaceId);
@@ -73,7 +73,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="orgId"></param>
         /// <returns></returns>
-        public List<SpaceMicro> GetOrganizationSpaces(int orgId)
+        public List<SpaceMicro> GetOrganizationSpaces(long orgId)
         {
             string url = string.Format("/space/org/{0}/", orgId);
             return _podio.Get<List<SpaceMicro>>(url);
@@ -86,7 +86,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="orgId"></param>
         /// <returns></returns>
-        public List<SpaceMicro> GetAvailableSpaces(int orgId)
+        public List<SpaceMicro> GetAvailableSpaces(long orgId)
         {
             string url = string.Format("/space/org/{0}/available/", orgId);
             return _podio.Get<List<SpaceMicro>>(url);
@@ -98,7 +98,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="spaceId"></param>
         /// <returns></returns>
-        public Seat GetAvailableSeats(int spaceId)
+        public Seat GetAvailableSeats(long spaceId)
         {
             string url = string.Format("/space/{0}/available", spaceId);
             return _podio.Get<Seat>(url);
@@ -110,7 +110,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="spaceId"></param>
         /// <returns></returns>
-        public Space GetSpace(int spaceId)
+        public Space GetSpace(long spaceId)
         {
             string url = string.Format("/space/{0}", spaceId);
             return _podio.Get<Space>(url);
@@ -123,7 +123,7 @@ namespace PodioAPI.Services
         /// <param name="orgId"></param>
         /// <param name="urlLabel"></param>
         /// <returns></returns>
-        public Space GetSpaceByOrgAndUrlLabel(int orgId, string urlLabel)
+        public Space GetSpaceByOrgAndUrlLabel(long orgId, string urlLabel)
         {
             string url = string.Format("/space/org/{0}/{1}", orgId, urlLabel);
             return _podio.Get<Space>(url);

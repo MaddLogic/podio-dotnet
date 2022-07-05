@@ -49,7 +49,7 @@ namespace PodioAPI.Models
         public Push Push { get; set; }
 
         [JsonProperty("space_id")]
-        public int? SpaceId { get; set; }
+        public long? SpaceId { get; set; }
 
         [JsonProperty("link")]
         public string link { get; set; }

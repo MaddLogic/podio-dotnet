@@ -21,7 +21,7 @@ namespace PodioAPI.Services
         /// <param name="externalURL">The url of endpoint.</param>
         /// <param name="type">The type of events to listen to, see the area for options.</param>
         /// <returns></returns>
-        public int CreateHook(string refType, int refId, string externalURL, string type)
+        public long CreateHook(string refType, long refId, string externalURL, string type)
         {
             string url = string.Format("/hook/{0}/{1}/", refType, refId);
             dynamic requestData = new
@@ -30,7 +30,7 @@ namespace PodioAPI.Services
                 type = type
             };
             dynamic response = _podio.Post<dynamic>(url, requestData);
-            return (int) response["hook_id"];
+            return (long) response["hook_id"];
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/hooks/delete-hook-215291 </para>
         /// </summary>
         /// <param name="hookId"></param>
-        public void DeleteHook(int hookId)
+        public void DeleteHook(long hookId)
         {
             string url = string.Format("/hook/{0}", hookId);
             _podio.Delete<dynamic>(url);
@@ -51,7 +51,7 @@ namespace PodioAPI.Services
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <returns></returns>
-        public List<Hook> GetHooks(string refType, int refId)
+        public List<Hook> GetHooks(string refType, long refId)
         {
             string url = string.Format("/hook/{0}/{1}/", refType, refId);
             return _podio.Get<List<Hook>>(url);
@@ -64,7 +64,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/hooks/request-hook-verification-215232 </para>
         /// </summary>
         /// <param name="hookId"></param>
-        public void Verify(int hookId)
+        public void Verify(long hookId)
         {
             string url = string.Format("/hook/{0}/verify/request", hookId);
             _podio.Post<dynamic>(url);
@@ -76,7 +76,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/hooks/validate-hook-verification-215241 </para>
         /// </summary>
         /// <param name="hookId"></param>
-        public void ValidateHookVerification(int hookId, string code)
+        public void ValidateHookVerification(long hookId, string code)
         {
             string url = string.Format("/hook/{0}/verify/validate", hookId);
             dynamic requestData = new

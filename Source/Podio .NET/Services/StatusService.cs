@@ -19,7 +19,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="statusId"></param>
         /// <returns></returns>
-        public Status GetStatusMessage(int statusId)
+        public Status GetStatusMessage(long statusId)
         {
             string url = string.Format("/status/{0}", statusId);
             return _podio.Get<Status>(url);
@@ -40,7 +40,7 @@ namespace PodioAPI.Services
         /// <param name="questionText">The text of the question if any</param>
         /// <param name="questionOptions">The list of answer options as strings</param>
         /// <returns></returns>
-        public Status AddNewStatusMessage(int spaceId, string text, List<int> fileIds = null, int? embedId = null,
+        public Status AddNewStatusMessage(long spaceId, string text, List<long> fileIds = null, long? embedId = null,
             string embedUrl = null, string questionText = null, List<string> questionOptions = null)
         {
             string url = string.Format("/status/space/{0}/", spaceId);
@@ -74,7 +74,7 @@ namespace PodioAPI.Services
         ///     area
         /// </param>
         /// <param name="embedUrl">The url to be attached</param>
-        public void UpdateStatusMessage(int statusId, string text, List<int> fileIds = null, int? embedId = null,
+        public void UpdateStatusMessage(long statusId, string text, List<long> fileIds = null, long? embedId = null,
             string embedUrl = null)
         {
             string url = string.Format("/status/{0}", statusId);
@@ -93,7 +93,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/status/delete-a-status-message-22339 </para>
         /// </summary>
         /// <param name="statusId"></param>
-        public void DeleteStatusMessage(int statusId)
+        public void DeleteStatusMessage(long statusId)
         {
             string url = string.Format("/status/{0}", statusId);
             _podio.Delete<dynamic>(url);

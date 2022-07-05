@@ -31,7 +31,7 @@ namespace PodioAPI.Models
         public DateTime LastEventOn { get; set; }
 
         [JsonProperty(PropertyName = "conversation_id")]
-        public int? ConversationId { get; set; }
+        public long? ConversationId { get; set; }
 
         [JsonProperty(PropertyName = "starred")]
         public bool Starred { get; set; }

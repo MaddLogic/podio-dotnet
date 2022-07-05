@@ -7,7 +7,7 @@ namespace PodioAPI.Models
     public class Widget
     {
         [JsonProperty("widget_id")]
-        public int? WidgetId { get; set; }
+        public long? WidgetId { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }

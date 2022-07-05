@@ -20,7 +20,7 @@ namespace PodioAPI.Services
         /// <param name="name">The name of the new organization</param>
         /// <param name="logo">The file id of the logo of the organization</param>
         /// <returns></returns>
-        public Organization AddNewOrganization(string name, int logo)
+        public Organization AddNewOrganization(string name, long logo)
         {
             string url = "/org/";
             dynamic requestData = new
@@ -37,7 +37,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <param name="userId">The id of the user to be made administrator</param>
-        public void AddOrganizationAdmin(int organizationId, int userId)
+        public void AddOrganizationAdmin(long organizationId, long userId)
         {
             string url = string.Format("/org/{0}/admin/", organizationId);
             dynamic requestData = new
@@ -57,13 +57,13 @@ namespace PodioAPI.Services
         /// <param name="organizationId"></param>
         /// <param name="profileData"></param>
         /// <returns></returns>
-        public int? CreateOrganizationAppStoreProfile(int organizationId, Contact profileData)
+        public long? CreateOrganizationAppStoreProfile(long organizationId, Contact profileData)
         {
             string url = string.Format("/org/{0}/appstore", organizationId);
             dynamic response = _podio.Post<dynamic>(url, profileData);
 
             if (response != null)
-                return (int) response["profile_id"];
+                return (long) response["profile_id"];
             else
                 return null;
         }
@@ -76,7 +76,7 @@ namespace PodioAPI.Services
         ///     </para>
         /// </summary>
         /// <param name="organizationId"></param>
-        public void DeleteOrganizationAppStoreProfile(int organizationId)
+        public void DeleteOrganizationAppStoreProfile(long organizationId)
         {
             string url = string.Format("/org/{0}/appstore", organizationId);
             _podio.Delete<dynamic>(url);
@@ -88,7 +88,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <param name="userId"></param>
-        public void DeleteOrganizationMemberRole(int organizationId, int userId)
+        public void DeleteOrganizationMemberRole(long organizationId, long userId)
         {
             string url = string.Format("/org/{0}/member/{1}/role", organizationId, userId);
             _podio.Delete<dynamic>(url);
@@ -101,7 +101,7 @@ namespace PodioAPI.Services
         /// <param name="organizationId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public OrganizationMember GetMember(int organizationId, int userId)
+        public OrganizationMember GetMember(long organizationId, long userId)
         {
             string url = string.Format("/org/{0}/member/{1}", organizationId, userId);
             return _podio.Get<OrganizationMember>(url);
@@ -123,7 +123,7 @@ namespace PodioAPI.Services
         /// <param name="sortBy">The sorting order of the results returned. Valid options are "name" and "last_seen_on" </param>
         /// <param name="sortDesc">True if the results should be sorted descending, false otherwise. Default value: false </param>
         /// <returns></returns>
-        public List<OrganizationMember> GetMembers(int organizationId, string memberType = null, string query = null,
+        public List<OrganizationMember> GetMembers(long organizationId, string memberType = null, string query = null,
             int? limit = null, int? offset = null, string sortBy = null, bool sortDesc = false)
         {
             string url = string.Format("/org/{0}/member/", organizationId);
@@ -156,7 +156,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <returns></returns>
-        public Organization GetOrganization(int organizationId)
+        public Organization GetOrganization(long organizationId)
         {
             string url = string.Format("/org/{0}", organizationId);
             return _podio.Get<Organization>(url);
@@ -185,7 +185,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <returns></returns>
-        public List<User> GetOrganizationAdmins(int organizationId)
+        public List<User> GetOrganizationAdmins(long organizationId)
         {
             string url = string.Format("/org/{0}/admin/", organizationId);
             return _podio.Get<List<User>>(url);
@@ -197,7 +197,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <returns></returns>
-        public Contact GetOrganizationAppStoreProfile(int organizationId)
+        public Contact GetOrganizationAppStoreProfile(long organizationId)
         {
             string url = string.Format("/org/{0}/appstore", organizationId);
             return _podio.Get<Contact>(url);
@@ -215,7 +215,7 @@ namespace PodioAPI.Services
         /// </param>
         /// <param name="offset">The offset into the weeks to return. Default value: 0</param>
         /// <returns></returns>
-        public List<OrganizationLoginReport> GetOrganizationLoginReport(int organizationId, int limit = 4,
+        public List<OrganizationLoginReport> GetOrganizationLoginReport(long organizationId, int limit = 4,
             int offset = 0)
         {
             string url = string.Format("/org/{0}/report/login/", organizationId);
@@ -233,7 +233,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <returns></returns>
-        public Contact GetOrganizationBillingProfile(int organizationId)
+        public Contact GetOrganizationBillingProfile(long organizationId)
         {
             string url = string.Format("/org/{0}/billing", organizationId);
             return _podio.Get<Contact>(url);
@@ -245,7 +245,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <returns></returns>
-        public List<Space> GetSpacesOnOrganization(int organizationId)
+        public List<Space> GetSpacesOnOrganization(long organizationId)
         {
             string url = string.Format("/org/{0}/space/", organizationId);
             return _podio.Get<List<Space>>(url);
@@ -258,7 +258,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <param name="userId"></param>
-        public void RemoveOrganizationAdmin(int organizationId, int userId)
+        public void RemoveOrganizationAdmin(long organizationId, long userId)
         {
             string url = string.Format("/org/{0}/admin/{1}", organizationId, userId);
             _podio.Delete<dynamic>(url);
@@ -272,7 +272,7 @@ namespace PodioAPI.Services
         /// <param name="name">The name of the new organization</param>
         /// <param name="urlLabel">The new subdomain of the URL of the organization, defaults to the existing URL</param>
         /// <param name="logo">The file id of the logo of the organization</param>
-        public void UpdateOrganization(int organizationId, string name = null, string urlLabel = null, int? logo = null)
+        public void UpdateOrganization(long organizationId, string name = null, string urlLabel = null, long? logo = null)
         {
             string url = string.Format("/org/{0}", organizationId);
             dynamic requestData = new
@@ -289,7 +289,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <param name="profileData">The value or list of values for the given field. For a list of fields see the contact area</param>
-        public void UpdateOrganizationAppStoreProfile(int organizationId, Contact profileData)
+        public void UpdateOrganizationAppStoreProfile(long organizationId, Contact profileData)
         {
             string url = string.Format("/org/{0}/appstore", organizationId);
             _podio.Put<dynamic>(url, profileData);
@@ -300,7 +300,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="organizationId"></param>
         /// <param name="profileData">The value or list of values for the given field. For a list of fields see the contact area</param>
-        public void UpdateOrganizationBillingProfile(int organizationId, Contact profileData)
+        public void UpdateOrganizationBillingProfile(long organizationId, Contact profileData)
         {
             string url = string.Format("/org/{0}/billing", organizationId);
             _podio.Put<dynamic>(url, profileData);
@@ -314,7 +314,7 @@ namespace PodioAPI.Services
         /// <param name="organizationId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<SpaceMember> GetSpaceMembershipsForOrgMember(int organizationId, int userId)
+        public List<SpaceMember> GetSpaceMembershipsForOrgMember(long organizationId, long userId)
         {
             string url = string.Format("/org/{0}/member/{1}/space_member/", organizationId, userId);
             return _podio.Get<List<SpaceMember>>(url);
@@ -331,7 +331,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<Organization> GetSharedOrganizations(int userId)
+        public List<Organization> GetSharedOrganizations(long userId)
         {
             string url = string.Format("/org/shared/{0}", userId);
             return _podio.Get<List<Organization>>(url);

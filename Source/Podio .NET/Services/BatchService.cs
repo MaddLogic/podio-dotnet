@@ -18,7 +18,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="batchId"></param>
         /// <returns></returns>
-        public Batch GetBatch(int batchId)
+        public Batch GetBatch(long batchId)
         {
             string url = string.Format("/batch/{0}", batchId);
             return _podio.Get<Batch>(url);
@@ -43,7 +43,7 @@ namespace PodioAPI.Services
         /// <param name="refId"></param>
         /// <param name="plugin">The plugin can either be "app_import", "app_export", "space_contact_import" or "app_content".</param>
         /// <returns></returns>
-        public List<Batch> GetRunningBatches(string refType, int refId, string plugin)
+        public List<Batch> GetRunningBatches(string refType, long refId, string plugin)
         {
             string url = string.Format("/batch/{0}/{1}/{2}/running/", refType, refId, plugin);
             return _podio.Get<List<Batch>>(url);

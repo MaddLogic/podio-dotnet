@@ -19,7 +19,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="conversationId"></param>
         /// <param name="participants">The list of people to grant access to. This is a list of contact identifiers</param>
-        public void AddParticipants(int conversationId, List<Ref> participants)
+        public void AddParticipants(long conversationId, List<Ref> participants)
         {
             string url = string.Format("/conversation/{0}/participant/v2/", conversationId);
             dynamic requestData = new
@@ -50,7 +50,7 @@ namespace PodioAPI.Services
         /// <param name="refId"></param>
         /// <param name="conversationCreateRequest"></param>
         /// <returns></returns>
-        public Conversation CreateConversationOnObject(string refType, int refId,
+        public Conversation CreateConversationOnObject(string refType, long refId,
             ConversationCreateRequest conversationCreateRequest)
         {
             string url = string.Format("/conversation/{0}/{1}/", refType, refId);
@@ -64,7 +64,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="conversationId"></param>
         /// <returns></returns>
-        public Conversation GetConversation(int conversationId)
+        public Conversation GetConversation(long conversationId)
         {
             string url = string.Format("/conversation/{0}", conversationId);
             return _podio.Get<Conversation>(url);
@@ -76,7 +76,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="eventId"></param>
         /// <returns></returns>
-        public ConversationEvent GetConversationEvent(int eventId)
+        public ConversationEvent GetConversationEvent(long eventId)
         {
             string url = string.Format("/conversation/event/{0}", eventId);
             return _podio.Get<ConversationEvent>(url);
@@ -90,7 +90,7 @@ namespace PodioAPI.Services
         /// <param name="limit">The maximum number of conversations/events to return. Default value: 10</param>
         /// <param name="offset">The offset into the list of conversations/events to return. Default value: 0</param>
         /// <returns></returns>
-        public List<ConversationEvent> GetConversationEvents(int conversationId, int limit = 10, int offset = 0)
+        public List<ConversationEvent> GetConversationEvents(long conversationId, int limit = 10, int offset = 0)
         {
             string url = string.Format("/conversation/{0}/event/", conversationId);
             var requestData = new Dictionary<string, string>
@@ -126,7 +126,7 @@ namespace PodioAPI.Services
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <returns></returns>
-        public List<Conversation> GetConversationsOnObject(string refType, int refId)
+        public List<Conversation> GetConversationsOnObject(string refType, long refId)
         {
             string url = string.Format("/conversation/{0}/{1}/", refType, refId);
             return _podio.Get<List<Conversation>>(url);
@@ -138,7 +138,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Conversation GetExistingDirectConversation(int userId)
+        public Conversation GetExistingDirectConversation(long userId)
         {
             string url = string.Format("/conversation/direct/{0}", userId);
             return _podio.Get<Conversation>(url);
@@ -181,7 +181,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/conversations/leave-conversation-35483748 </para>
         /// </summary>
         /// <param name="converstionId"></param>
-        public void LeaveConversation(int converstionId)
+        public void LeaveConversation(long converstionId)
         {
             string url = string.Format("/conversation/{0}/leave", converstionId);
             _podio.Post<dynamic>(url);
@@ -192,7 +192,7 @@ namespace PodioAPI.Services
         ///  <para>Podio API Reference: https://developers.podio.com/doc/conversations/mark-conversation-as-read-35441525 </para>
         /// </summary>
         /// <param name="conversationId"></param>
-        public void MarkConversationAsRead(int conversationId)
+        public void MarkConversationAsRead(long conversationId)
         {
             string url = string.Format("/conversation/{0}/read", conversationId);
             _podio.Post<dynamic>(url);
@@ -213,7 +213,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/conversations/mark-conversation-as-unread-35441542 </para>
         /// </summary>
         /// <param name="converstionId"></param>
-        public void MarkConversationAsUnread(int converstionId)
+        public void MarkConversationAsUnread(long converstionId)
         {
             string url = string.Format("/conversation/{0}/read", converstionId);
             _podio.Delete<dynamic>(url);
@@ -232,8 +232,8 @@ namespace PodioAPI.Services
         /// </param>
         /// <param name="embedUrl">The url to be attached</param>
         /// <returns></returns>
-        public ConversationEvent ReplyToConversation(int converstionId, string text, List<int> fileIds = null,
-            int? embedId = null, string embedUrl = null)
+        public ConversationEvent ReplyToConversation(long converstionId, string text, List<long> fileIds = null,
+            long? embedId = null, string embedUrl = null)
         {
             string url = string.Format("/conversation/{0}/reply/v2", converstionId);
             dynamic requestData = new
@@ -251,7 +251,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/conversations/star-conversation-35106944 </para>
         /// </summary>
         /// <param name="converstionId"></param>
-        public void StarConversation(int converstionId)
+        public void StarConversation(long converstionId)
         {
             string url = string.Format("/conversation/{0}/star", converstionId);
             _podio.Post<dynamic>(url);
@@ -262,7 +262,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/conversations/unstar-conversation-35106990 </para>
         /// </summary>
         /// <param name="converstionId"></param>
-        public void UnstarConversation(int converstionId)
+        public void UnstarConversation(long converstionId)
         {
             string url = string.Format("/conversation/{0}/star", converstionId);
             _podio.Delete<dynamic>(url);

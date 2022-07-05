@@ -8,7 +8,7 @@ namespace PodioAPI.Models
     public class FileAttachment
     {
         [JsonProperty("file_id")]
-        public int FileId { get; set; }
+        public long FileId { get; set; }
 
         [JsonProperty("link")]
         public string Link { get; set; }
@@ -32,7 +32,7 @@ namespace PodioAPI.Models
         public string MimeType { get; set; }
 
         [JsonProperty("size")]
-        public int? Size { get; set; }
+        public long? Size { get; set; }
 
         [JsonProperty("context")]
         public JToken Context { get; set; }

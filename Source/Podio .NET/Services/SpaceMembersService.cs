@@ -20,7 +20,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="spaceId"></param>
         /// <returns></returns>
-        public List<SpaceMember> GetActiveMembersOfSpace(int spaceId)
+        public List<SpaceMember> GetActiveMembersOfSpace(long spaceId)
         {
             string url = string.Format("/space/{0}/member/", spaceId);
             return _podio.Get<List<SpaceMember>>(url);
@@ -33,7 +33,7 @@ namespace PodioAPI.Services
         /// <param name="spaceId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public SpaceMember GetSpaceMember(int spaceId, int userId)
+        public SpaceMember GetSpaceMember(long spaceId, long userId)
         {
             string url = string.Format("/space/{0}/member/{1}/v2", spaceId, userId);
             return _podio.Get<SpaceMember>(url);
@@ -46,7 +46,7 @@ namespace PodioAPI.Services
         /// <param name="spaceId"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public List<SpaceMember> GetSpaceMembersByRole(int spaceId, string role)
+        public List<SpaceMember> GetSpaceMembersByRole(long spaceId, string role)
         {
             string url = string.Format("/space/{0}/member/{1}/", spaceId, role);
             return _podio.Get<List<SpaceMember>>(url);
@@ -65,7 +65,7 @@ namespace PodioAPI.Services
         /// <param name="limit">The maximum number of members to return. Default value: 100</param>
         /// <param name="offset">The offset into the member list. Default value: 0</param>
         /// <returns></returns>
-        public List<SpaceMember> GetSpaceMembers(int spaceId, string memberType = null, string query = null,
+        public List<SpaceMember> GetSpaceMembers(long spaceId, string memberType = null, string query = null,
             int limit = 100, int offset = 0)
         {
             string url = string.Format("/space/{0}/member/v2/", spaceId);
@@ -86,7 +86,7 @@ namespace PodioAPI.Services
         /// <param name="spaceId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public SpaceMember GetSpaceMembership(int spaceId, int userId)
+        public SpaceMember GetSpaceMembership(long spaceId, long userId)
         {
             string url = string.Format("/space/{0}/member/{1}", spaceId, userId);
             return _podio.Get<SpaceMember>(url);
@@ -97,7 +97,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/space-members/join-space-1927286 </para>
         /// </summary>
         /// <param name="spaceId"></param>
-        public void JoinSpace(int spaceId)
+        public void JoinSpace(long spaceId)
         {
             string url = string.Format("/space/{0}/join", spaceId);
             _podio.Post<dynamic>(url);
@@ -108,7 +108,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/space-members/leave-space-19410457 </para>
         /// </summary>
         /// <param name="spaceId"></param>
-        public void LeaveSpace(int spaceId)
+        public void LeaveSpace(long spaceId)
         {
             string url = string.Format("/space/{0}/leave", spaceId);
             _podio.Post<dynamic>(url);
@@ -121,7 +121,7 @@ namespace PodioAPI.Services
         /// <param name="spaceId"></param>
         /// <param name="userIds"></param>
         /// <param name="role"></param>
-        public void UpdateSpaceMemberships(int spaceId, int[] userIds, string role)
+        public void UpdateSpaceMemberships(long spaceId, long[] userIds, string role)
         {
             string userIdsCSV = Utilities.ArrayToCSV(userIds);
             string url = string.Format("/space/{0}/member/{1}", spaceId, userIdsCSV);
@@ -138,7 +138,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/space-members/request-space-membership-6146231 </para>
         /// </summary>
         /// <param name="spaceId"></param>
-        public void RequestSpaceMembership(int spaceId)
+        public void RequestSpaceMembership(long spaceId)
         {
             string url = string.Format("/space/{0}/member_request/", spaceId);
             _podio.Post<dynamic>(url);
@@ -150,7 +150,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="spaceId"></param>
         /// <param name="spaceMemberRequestId"></param>
-        public void AcceptSpaceMembershipRequest(int spaceId, int spaceMemberRequestId)
+        public void AcceptSpaceMembershipRequest(long spaceId, long spaceMemberRequestId)
         {
             string url = string.Format("/space/{0}/member_request/{1}/accept", spaceId, spaceMemberRequestId);
             _podio.Post<dynamic>(url);
@@ -163,7 +163,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="spaceId"></param>
         /// <param name="addSpaceMemberRequest"></param>
-        public void AddMemberToSpace(int spaceId, AddSpaceMemberRequest addSpaceMemberRequest)
+        public void AddMemberToSpace(long spaceId, AddSpaceMemberRequest addSpaceMemberRequest)
         {
             string url = string.Format("/space/{0}/member/", spaceId);
             _podio.Post<dynamic>(url, addSpaceMemberRequest);
@@ -175,7 +175,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="spaceId"></param>
         /// <param name="userIds"></param>
-        public void EndSpaceMemberships(int spaceId, int[] userIds)
+        public void EndSpaceMemberships(long spaceId, long[] userIds)
         {
             string userIdsAsCSV = Utilities.ArrayToCSV(userIds);
             string url = string.Format("/space/{0}/member/{1}", spaceId, userIdsAsCSV);

@@ -18,7 +18,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/forms/activate-form-1107439 </para>
         /// </summary>
         /// <param name="formId"></param>
-        public void ActivateForm(int formId)
+        public void ActivateForm(long formId)
         {
             string url = string.Format("/form/{0}/activate", formId);
             _podio.Post<dynamic>(url);
@@ -30,7 +30,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/forms/deactivate-form-1107378 </para>
         /// </summary>
         /// <param name="formId"></param>
-        public void DeactivateForm(int formId)
+        public void DeactivateForm(long formId)
         {
             string url = string.Format("/form/{0}/deactivate", formId);
             _podio.Post<dynamic>(url);
@@ -42,7 +42,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="formId"></param>
         /// <returns></returns>
-        public Form GetForm(int formId)
+        public Form GetForm(long formId)
         {
             string url = string.Format("/form/{0}", formId);
             return _podio.Get<Form>(url);
@@ -54,7 +54,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public List<Form> GetForms(int appId)
+        public List<Form> GetForms(long appId)
         {
             string url = string.Format("/form/app/{0}/", appId);
             return _podio.Get<List<Form>>(url);
@@ -65,7 +65,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/forms/delete-from-53810 </para>
         /// </summary>
         /// <param name="formId"></param>
-        public void DeleteFrom(int formId)
+        public void DeleteFrom(long formId)
         {
             string url = string.Format("/form/{0}", formId);
             _podio.Delete<dynamic>(url);
@@ -81,7 +81,7 @@ namespace PodioAPI.Services
         /// <param name="fields">The id and settings for each field.</param>
         /// <param name="attachments">True if attachments are allowed, false otherwise.</param>
         /// <returns></returns>
-        public int CreateForm(int appId, FormSettings fromSettings, string[] domains, List<FormField> fields,
+        public long CreateForm(long appId, FormSettings fromSettings, string[] domains, List<FormField> fields,
             bool attachments)
         {
             string url = string.Format("/form/app/{0}/", appId);
@@ -93,7 +93,7 @@ namespace PodioAPI.Services
                 attachments = attachments
             };
             dynamic response = _podio.Post<dynamic>(url, requestData);
-            return (int) response["form_id"];
+            return (long) response["form_id"];
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace PodioAPI.Services
         /// <param name="domains">The list of domains where the form can be used.</param>
         /// <param name="fields">The id and settings for each field.</param>
         /// <param name="attachments">True if attachments are allowed, false otherwise.</param>
-        public void UpdateForm(int formId, FormSettings fromSettings, string[] domains, List<FormField> fields,
+        public void UpdateForm(long formId, FormSettings fromSettings, string[] domains, List<FormField> fields,
             bool attachments)
         {
             string url = string.Format("/form/{0}", formId);

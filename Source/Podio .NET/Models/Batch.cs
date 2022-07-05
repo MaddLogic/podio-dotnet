@@ -6,7 +6,7 @@ namespace PodioAPI.Models
     public class Batch
     {
         [JsonProperty("batch_id")]
-        public int? BatchId { get; set; }
+        public long? BatchId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

@@ -82,7 +82,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="shareId"></param>
         /// <returns></returns>
-        public AppMarketShare GetShare(int shareId)
+        public AppMarketShare GetShare(long shareId)
         {
             string url = string.Format("/app_store/{0}/v2", shareId);
             return _podio.Get<AppMarketShare>(url);
@@ -96,7 +96,7 @@ namespace PodioAPI.Services
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <returns></returns>
-        public List<AppMarketShare> GetShareByReference(string refType, int refId)
+        public List<AppMarketShare> GetShareByReference(string refType, long refId)
         {
             string url = string.Format("/app_store/{0}/{1}/", refType, refId);
             return _podio.Get<List<AppMarketShare>>(url);
@@ -115,7 +115,7 @@ namespace PodioAPI.Services
         ///     "name".Default value: install
         /// </param>
         /// <returns></returns>
-        public AppMarketShares GetSharesByAuthor(string type, int userId, int limit = 6, int offset = 0,
+        public AppMarketShares GetSharesByAuthor(string type, long userId, int limit = 6, int offset = 0,
             string sort = "install")
         {
             string url = string.Format("/app_store/{0}/author/{1}/", type, userId);
@@ -142,7 +142,7 @@ namespace PodioAPI.Services
         ///     "name".Default value: install
         /// </param>
         /// <returns></returns>
-        public AppMarketShares GetSharesByCategory(string type, int categoryId, int limit = 6, int offset = 0,
+        public AppMarketShares GetSharesByCategory(string type, long categoryId, int limit = 6, int offset = 0,
             string sort = "install")
         {
             string url = string.Format("/app_store/{0}/category/{1}/", type, categoryId);
@@ -187,7 +187,7 @@ namespace PodioAPI.Services
         ///     specified, all dependencies will be installed
         /// </param>
         /// <returns></returns>
-        public AppMarketShareInstall InstallShare(int shareId, int spaceId, List<int> dependentShareIds)
+        public AppMarketShareInstall InstallShare(long shareId, long spaceId, List<long> dependentShareIds)
         {
             string url = string.Format("/app_store/{0}/install", shareId);
             dynamic requestData = new
@@ -215,8 +215,8 @@ namespace PodioAPI.Services
         /// <param name="childrenId">The ids of the child shares that this share should include</param>
         /// <param name="scope">The scope the app should be shared with, either "public" or "private", defaults to "public"</param>
         /// <returns>The id of the newly created share</returns>
-        public int ShareApp(string refType, int refId, string name, string abstracts, string description,
-            string language, int[] categoryId, int[] fileId, int videoId, List<string> features, int childrenId,
+        public long ShareApp(string refType, long refId, string name, string abstracts, string description,
+            string language, long[] categoryId, long[] fileId, long videoId, List<string> features, long childrenId,
             string scope = "public")
         {
             string url = "/app_store/";
@@ -236,7 +236,7 @@ namespace PodioAPI.Services
                 scope = scope
             };
             dynamic response = _podio.Post<dynamic>(url, requestData);
-            return (int) response["share_id"];
+            return (long) response["share_id"];
         }
 
         /// <summary>
@@ -244,7 +244,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <para>Podio API Reference: https://developers.podio.com/doc/app-market/unshare-app-37917  </para>
         /// <param name="shareId"></param>
-        public void UnshareApp(int shareId)
+        public void UnshareApp(long shareId)
         {
             string url = string.Format("/app_store/{0}", shareId);
             _podio.Delete<dynamic>(url);
@@ -262,8 +262,8 @@ namespace PodioAPI.Services
         /// <param name="categoryId">The ids of the categories the share should be placed in</param>
         /// <param name="fileId">The file ids to use as screenshots for the share</param>
         /// <param name="videoId">The youtube id of a introduction video, if any</param>
-        public void UpdateShare(int shareId, string name, string abstracts, string description, string language,
-            int[] categoryId, int[] fileId, int? videoId = null)
+        public void UpdateShare(long shareId, string name, string abstracts, string description, string language,
+            long[] categoryId, long[] fileId, long? videoId = null)
         {
             string url = string.Format("/app_store/{0}", shareId);
             dynamic requestData = new

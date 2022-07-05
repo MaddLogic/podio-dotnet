@@ -38,7 +38,7 @@ namespace PodioAPI.Services
         /// <param name="orgId"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public TaskSummary GetTaskSummaryForOrganization(int orgId, int limit = 4)
+        public TaskSummary GetTaskSummaryForOrganization(long orgId, int limit = 4)
         {
             string url = string.Format("/task/org/{0}/summary", orgId);
             var requestData = new Dictionary<string, string>
@@ -72,7 +72,7 @@ namespace PodioAPI.Services
         /// <param name="refId"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public TaskSummary GetTaskSummaryForReference(string refType, int refId, int limit = 4)
+        public TaskSummary GetTaskSummaryForReference(string refType, long refId, int limit = 4)
         {
             string url = string.Format("/task/{0}/{1}/summary", refType, refId);
             var requestData = new Dictionary<string, string>
@@ -89,7 +89,7 @@ namespace PodioAPI.Services
         /// <param name="spaceId"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public TaskSummary GetTaskSummaryForSpace(int spaceId, int limit = 4)
+        public TaskSummary GetTaskSummaryForSpace(long spaceId, int limit = 4)
         {
             string url = string.Format("/task/space/{0}/summary", spaceId);
             var requestData = new Dictionary<string, string>
@@ -106,7 +106,7 @@ namespace PodioAPI.Services
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <returns></returns>
-        public int GetTaskCount(string refType, int refId)
+        public int GetTaskCount(string refType, long refId)
         {
             string url = string.Format("/task/{0}/{1}/count", refType, refId);
             dynamic response = _podio.Get<dynamic>(url);
@@ -130,7 +130,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="taskId"></param>
         /// <returns></returns>
-        public Task GetTask(int taskId)
+        public Task GetTask(long taskId)
         {
             string url = string.Format("/task/{0}", taskId);
             return _podio.Get<Task>(url);
@@ -143,7 +143,7 @@ namespace PodioAPI.Services
         /// <param name="time">The valid values for time are: "overdue", "due", "today" and "all".</param>
         /// <param name="spaceId"></param>
         /// <returns></returns>
-        public int GetTaskTotalsByTime(string time, int spaceId)
+        public int GetTaskTotalsByTime(string time, long spaceId)
         {
             string url = string.Format("/task/total/{0}", time);
             var requestData = new Dictionary<string, string>
@@ -164,7 +164,7 @@ namespace PodioAPI.Services
         ///     If set to true, the object will not be bumped up in the stream and notifications will not be
         ///     generated. Default value: false
         /// </param>
-        public void IncompleteTask(int taskId, bool hook = true, bool silent = false)
+        public void IncompleteTask(long taskId, bool hook = true, bool silent = false)
         {
             string url = string.Format("/task/{0}/incomplete", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
@@ -184,7 +184,7 @@ namespace PodioAPI.Services
         ///     generated. Default value: false
         /// </param>
         /// <returns></returns>
-        public List<Task> CreateTask(TaskCreateUpdateRequest task, string refType = null, int? refId = null,
+        public List<Task> CreateTask(TaskCreateUpdateRequest task, string refType = null, long? refId = null,
             bool hook = true, bool silent = false)
         {
             string url = "/task/";
@@ -194,7 +194,7 @@ namespace PodioAPI.Services
             }
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
             var createdTasks = new List<Task>();
-            if ((task.Responsible is IEnumerable<int> || task.Responsible is IEnumerable<Ref>) &&
+            if ((task.Responsible is IEnumerable<long> || task.Responsible is IEnumerable<Ref>) &&
                 task.Responsible.Count > 1)
             {
                 List<Task> response = _podio.Post<List<Task>>(url, task);
@@ -226,7 +226,7 @@ namespace PodioAPI.Services
         /// </param>
         /// <returns></returns>
         public List<Task> CreateTask(string text, DateTime? dueDate = null, string description = null,
-            int? responsible = null, bool isPrivate = true, string refType = null, int? refId = null, bool hook = true,
+            long? responsible = null, bool isPrivate = true, string refType = null, long? refId = null, bool hook = true,
             bool silent = false)
         {
             var task = new TaskCreateUpdateRequest
@@ -252,7 +252,7 @@ namespace PodioAPI.Services
         ///     generated. Default value: false
         /// </param>
         /// <returns></returns>
-        public Task UpdateTask(int taskId, TaskCreateUpdateRequest task, bool hook = true, bool silent = false)
+        public Task UpdateTask(long taskId, TaskCreateUpdateRequest task, bool hook = true, bool silent = false)
         {
             string url = string.Format("/task/{0}", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
@@ -269,7 +269,7 @@ namespace PodioAPI.Services
         ///     If set to true, the object will not be bumped up in the stream and notifications will not be
         ///     generated. Default value: false
         /// </param>
-        public void DeleteTask(int taskId, bool hook = true, bool silent = false)
+        public void DeleteTask(long taskId, bool hook = true, bool silent = false)
         {
             string url = string.Format("/task/{0}", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
@@ -281,7 +281,7 @@ namespace PodioAPI.Services
         ///     <para>API Reference: https://developers.podio.com/doc/tasks/delete-label-151302 </para>
         /// </summary>
         /// <param name="labelId"></param>
-        public void DeleteLabel(int labelId)
+        public void DeleteLabel(long labelId)
         {
             string url = string.Format("/task/label/{0}", labelId);
             _podio.Delete<dynamic>(url);
@@ -294,7 +294,7 @@ namespace PodioAPI.Services
         /// <param name="taskId"></param>
         /// <param name="beforeTaskId"></param>
         /// <param name="afterTaskId"></param>
-        public void RankTask(int taskId, int beforeTaskId, int afterTaskId)
+        public void RankTask(long taskId, long beforeTaskId, long afterTaskId)
         {
             string url = string.Format("/task/{0}/rank", taskId);
             dynamic requestData = new
@@ -310,7 +310,7 @@ namespace PodioAPI.Services
         ///     <para>API Reference: https://developers.podio.com/doc/tasks/remove-task-reference-6146114 </para>
         /// </summary>
         /// <param name="taskId"></param>
-        public void RemoveTaskReference(int taskId)
+        public void RemoveTaskReference(long taskId)
         {
             string url = string.Format("/task/{0}/ref", taskId);
             _podio.Delete<dynamic>(url);
@@ -323,7 +323,7 @@ namespace PodioAPI.Services
         /// <param name="labelId"></param>
         /// <param name="text">The name of the new label</param>
         /// <param name="color">The color of the label in hex format (xxxxxx)</param>
-        public void UpdateLabel(int labelId, string text, string color)
+        public void UpdateLabel(long labelId, string text, string color)
         {
             string url = string.Format("/task/label/{0}", labelId);
             dynamic requestData = new
@@ -342,7 +342,7 @@ namespace PodioAPI.Services
         /// <param name="description"></param>
         /// <param name="hook"></param>
         /// <param name="silent"></param>
-        public void UpdateTaskDescription(int taskId, string description, bool hook = true, bool silent = false)
+        public void UpdateTaskDescription(long taskId, string description, bool hook = true, bool silent = false)
         {
             string url = string.Format("/task/{0}/description", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
@@ -361,7 +361,7 @@ namespace PodioAPI.Services
         /// <param name="isPrivate">True if the task should be private, false otherwise</param>
         /// <param name="hook"></param>
         /// <param name="silent"></param>
-        public void UpdateTaskPrivate(int taskId, bool isPrivate, bool hook = true, bool silent = false)
+        public void UpdateTaskPrivate(long taskId, bool isPrivate, bool hook = true, bool silent = false)
         {
             string url = string.Format("/task/{0}/private", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
@@ -380,7 +380,7 @@ namespace PodioAPI.Services
         /// <param name="text">The new text of the task</param>
         /// <param name="hook"></param>
         /// <param name="silent"></param>
-        public void UpdateTaskText(int taskId, string text, bool hook = true, bool silent = false)
+        public void UpdateTaskText(long taskId, string text, bool hook = true, bool silent = false)
         {
             string url = string.Format("/task/{0}/text", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
@@ -400,7 +400,7 @@ namespace PodioAPI.Services
         /// <param name="dueDateTime">The date and time the task is due (in local date and time)</param>
         /// <param name="hook"></param>
         /// <param name="silent"></param>
-        public void UpdateTaskDueOn(int taskId, DateTime dueOn, DateTime dueDateTime, bool hook = true,
+        public void UpdateTaskDueOn(long taskId, DateTime dueOn, DateTime dueDateTime, bool hook = true,
             bool silent = false)
         {
             string url = string.Format("/task/{0}/due", taskId);
@@ -420,7 +420,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="taskId"></param>
         /// <param name="labelIds"></param>
-        public void UpdateTaskLabels(int taskId, List<int> labelIds)
+        public void UpdateTaskLabels(long taskId, List<long> labelIds)
         {
             string url = string.Format("/task/{0}/label/", taskId);
             dynamic requestData = labelIds;
@@ -437,7 +437,7 @@ namespace PodioAPI.Services
         /// <param name="refId"></param>
         /// <param name="hook"></param>
         /// <param name="silent"></param>
-        public void UpdateTaskReference(int taskId, string refType, int refId, bool hook = true, bool silent = false)
+        public void UpdateTaskReference(long taskId, string refType, long refId, bool hook = true, bool silent = false)
         {
             string url = string.Format("/task/{0}/ref", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
@@ -491,12 +491,12 @@ namespace PodioAPI.Services
         ///     get task operation.
         /// </param>
         /// <returns></returns>
-        public List<Task> GetTasks(int? appId = null, bool? completed = null, int? completedBy = null,
-            string completedOn = null, int? createdBy = null, string createdOn = null, int? createdVia = null,
+        public List<Task> GetTasks(long? appId = null, bool? completed = null, long? completedBy = null,
+            string completedOn = null, long? createdBy = null, string createdOn = null, long? createdVia = null,
             string dueDate = null, string externalId = null, bool? files = null, string grouping = null,
-            int? label = null, int? limit = null, int offset = 0, int? org = null, bool? reassigned = null,
-            string reference = null, int? responsible = null, string sort_by = "rank", bool sortDesc = false,
-            int? space = null, string view = null)
+            long? label = null, int? limit = null, int offset = 0, long? org = null, bool? reassigned = null,
+            string reference = null, long? responsible = null, string sort_by = "rank", bool sortDesc = false,
+            long? space = null, string view = null)
         {
             string url = "/task/";
             var requestData = new Dictionary<string, string>
@@ -535,7 +535,7 @@ namespace PodioAPI.Services
         ///     spaces.
         /// </param>
         /// <returns></returns>
-        public TaskReport GetTaskTotals(int[] spaceIds = null)
+        public TaskReport GetTaskTotals(long[] spaceIds = null)
         {
             string url = "/task/total/";
             var requestData = new Dictionary<string, string>();
@@ -554,7 +554,7 @@ namespace PodioAPI.Services
         /// <param name="text">The name of the new label.</param>
         /// <param name="color">The color of the label in hex format (xxxxxx).</param>
         /// <returns></returns>
-        public int CreateLabel(string text, string color)
+        public long CreateLabel(string text, string color)
         {
             string url = "/task/label/";
             dynamic requestData = new
@@ -563,7 +563,7 @@ namespace PodioAPI.Services
                 color = color
             };
             dynamic response = _podio.Post<dynamic>(url, requestData);
-            return (int) response["label_id"];
+            return (long) response["label_id"];
         }
 
         /// <summary>
@@ -577,13 +577,13 @@ namespace PodioAPI.Services
         ///     generated. Default value: false.
         /// </param>
         /// <returns></returns>
-        public int? CompleteTask(int taskId, bool hook = true, bool silent = false)
+        public long? CompleteTask(long taskId, bool hook = true, bool silent = false)
         {
             string url = string.Format("/task/{0}/complete", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));
             dynamic response = _podio.Post<dynamic>(url);
             if (response != null)
-                return (int?) response["recurring_task_id"];
+                return (long?) response["recurring_task_id"];
             return null;
         }
 
@@ -597,7 +597,7 @@ namespace PodioAPI.Services
         ///     generated. Default value: false.
         /// </param>
         /// <param name="responsible">The contact responsible (user_id), or null if no one should be responsible.</param>
-        public void AssignTask(int taskId, int? responsible = null, bool silent = false)
+        public void AssignTask(long taskId, long? responsible = null, bool silent = false)
         {
             string url = string.Format("/task/{0}/assign", taskId);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent));

@@ -22,7 +22,7 @@ namespace PodioAPI.Services
         /// <param name="title">The title of the widget</param>
         /// <param name="config">The configuration, depends on the types. See the area for details</param>
         /// <returns></returns>
-        public int CreateWidget(string refType, int refId, string type, string title, dynamic config)
+        public long CreateWidget(string refType, long refId, string type, string title, dynamic config)
         {
             string url = string.Format("/widget/{0}/{1}/", refType, refId);
             dynamic requestData = new
@@ -33,7 +33,7 @@ namespace PodioAPI.Services
             };
 
             dynamic respone = _podio.Post<dynamic>(url, requestData);
-            return (int) respone["widget_id"];
+            return (long) respone["widget_id"];
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace PodioAPI.Services
         /// <param name="widgetId"></param>
         /// <param name="title"></param>
         /// <param name="config"></param>
-        public void UpdateWidget(int widgetId, string title, dynamic config)
+        public void UpdateWidget(long widgetId, string title, dynamic config)
         {
             string url = string.Format("/widget/{0}", widgetId);
             dynamic requestData = new
@@ -63,7 +63,7 @@ namespace PodioAPI.Services
         /// <param name="type">The type of the new position, either "user" or "space",</param>
         /// <param name="id">The id of the new position</param>
         /// <returns>The id of the cloned widget</returns>
-        public int CloneWidget(int widgetId, string type, string id)
+        public long CloneWidget(long widgetId, string type, string id)
         {
             string url = string.Format("/widget/{0}/clone", widgetId);
             dynamic requestData = new
@@ -73,7 +73,7 @@ namespace PodioAPI.Services
             };
 
             dynamic respone = _podio.Post<dynamic>(url, requestData);
-            return (int) respone["widget_id"];
+            return (long) respone["widget_id"];
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/widgets/delete-widget-22492 </para>
         /// </summary>
         /// <param name="widgetId"></param>
-        public void DeleteWidget(int widgetId)
+        public void DeleteWidget(long widgetId)
         {
             string url = string.Format("/widget/{0}", widgetId);
             _podio.Delete<dynamic>(url);
@@ -94,7 +94,7 @@ namespace PodioAPI.Services
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <param name="widgetIds">The ids of the widgets in the new requested order.</param>
-        public void UpdateWidgetOrder(string refType, string refId, List<int> widgetIds)
+        public void UpdateWidgetOrder(string refType, string refId, List<long> widgetIds)
         {
             string url = string.Format("/widget/{0}/{1}/order", refType, refId);
             _podio.Put<dynamic>(url, widgetIds);
@@ -106,7 +106,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="widgetId"></param>
         /// <returns></returns>
-        public Widget GetWidget(int widgetId)
+        public Widget GetWidget(long widgetId)
         {
             string url = string.Format("/widget/{0}", widgetId);
             return _podio.Get<Widget>(url);
@@ -119,7 +119,7 @@ namespace PodioAPI.Services
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <returns></returns>
-        public List<Widget> GetWidgets(string refType, int refId)
+        public List<Widget> GetWidgets(string refType, long refId)
         {
             string url = string.Format("/widget/{0}/{1}/", refType, refId);
             return _podio.Get<List<Widget>>(url);

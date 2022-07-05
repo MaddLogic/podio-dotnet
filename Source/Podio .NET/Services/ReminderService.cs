@@ -16,11 +16,11 @@
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <returns></returns>
-        public int GetReminder(string refType, int refId)
+        public long GetReminder(string refType, long refId)
         {
             string url = string.Format("/reminder/{0}/{1}", refType, refId);
             dynamic response = _podio.Get<dynamic>(url);
-            return (int) response["remind_delta"];
+            return (long) response["remind_delta"];
         }
 
         /// <summary>
@@ -30,7 +30,7 @@
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <param name="reminderId"></param>
-        public void DeleteReminder(string refType, int refId, int reminderId)
+        public void DeleteReminder(string refType, long refId, long reminderId)
         {
             string url = string.Format("/reminder/{0}/{1}?reminder_id={2}", refType, refId, reminderId);
             _podio.Delete<dynamic>(url);
@@ -43,7 +43,7 @@
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <param name="reminderId"></param>
-        public void SnoozeReminder(string refType, int refId, int reminderId)
+        public void SnoozeReminder(string refType, long refId, long reminderId)
         {
             string url = string.Format("/reminder/{0}/{1}/snooze?reminder_id={2}", refType, refId, reminderId);
             _podio.Post<dynamic>(url);
@@ -56,7 +56,7 @@
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <param name="remindDelta">minutes to remind before the due date of the object</param>
-        public void Update(string refType, int refId, int remindDelta)
+        public void Update(string refType, long refId, int remindDelta)
         {
             string url = string.Format("/reminder/{0}/{1}", refType, refId);
             dynamic requestData = new

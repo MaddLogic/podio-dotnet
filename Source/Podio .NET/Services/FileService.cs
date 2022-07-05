@@ -18,7 +18,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="fileId"></param>
         /// <returns></returns>
-        public FileAttachment GetFile(int fileId)
+        public FileAttachment GetFile(long fileId)
         {
             string url = string.Format("/file/{0}", fileId);
             return _podio.Get<FileAttachment>(url);
@@ -88,7 +88,7 @@ namespace PodioAPI.Services
         /// <param name="fileId"></param>
         /// <param name="description">The new description of the file</param>
         /// <returns></returns>
-        public void UpdateFile(int fileId, string description)
+        public void UpdateFile(long fileId, string description)
         {
             string url = string.Format("/file/{0}", fileId);
             dynamic requestData = new
@@ -103,7 +103,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/files/delete-file-22453 </para>
         /// </summary>
         /// <param name="fileId"></param>
-        public void DeleteFile(int fileId)
+        public void DeleteFile(long fileId)
         {
             string url = string.Format("/file/{0}", fileId);
             _podio.Delete<dynamic>(url);
@@ -116,7 +116,7 @@ namespace PodioAPI.Services
         /// <param name="oldFileId">The id of the old file that should be replacd with the new file</param>
         /// <param name="fileId"></param>
         /// <returns></returns>
-        public void ReplaceFile(int oldFileId, int fileId)
+        public void ReplaceFile(long oldFileId, long fileId)
         {
             string url = string.Format("/file/{0}/replace", fileId);
             dynamic requestData = new
@@ -137,7 +137,7 @@ namespace PodioAPI.Services
         /// </param>
         /// <param name="refId"></param>
         /// <returns></returns>
-        public void AttachFile(int fileId, string refType, int refId)
+        public void AttachFile(long fileId, string refType, long refId)
         {
             string url = string.Format("/file/{0}/attach", fileId);
             dynamic requestData = new
@@ -154,11 +154,11 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="fileId"></param>
         /// <returns>The id of the newly created file</returns>
-        public int CopyFile(int fileId)
+        public long CopyFile(long fileId)
         {
             string url = string.Format("/file/{0}/copy", fileId);
             dynamic response = _podio.Post<dynamic>(url);
-            return (int) response["file_id"];
+            return (long) response["file_id"];
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace PodioAPI.Services
         /// <param name="sortBy">How the files should be sorted. Can be one of {"name", "created_on"} Default value: name</param>
         /// <param name="sortDesc">true for to sort in descending order, false in ascending Default value: false</param>
         /// <returns></returns>
-        public List<FileAttachment> GetFilesOnApp(int appId, string attachedTo = null, string createdBy = null,
+        public List<FileAttachment> GetFilesOnApp(long appId, string attachedTo = null, string createdBy = null,
             string createdOn = null, string filetype = null, string hostedBy = null, int limit = 20, int offset = 0,
             string sortBy = null, bool sortDesc = false)
         {
@@ -279,7 +279,7 @@ namespace PodioAPI.Services
         /// <param name="sortBy">How the files should be sorted. Can be one of {"name", "created_on"} Default value: name</param>
         /// <param name="sortDesc">true for to sort in descending order, false in ascending Default value: false</param>
         /// <returns></returns>
-        public List<FileAttachment> GetFilesOnSpace(int spaceId, string attachedTo = null, string createdBy = null,
+        public List<FileAttachment> GetFilesOnSpace(long spaceId, string attachedTo = null, string createdBy = null,
             string createdOn = null, string filetype = null, string hostedBy = null, int limit = 20, int offset = 0,
             string sortBy = null, bool sortDesc = false)
         {

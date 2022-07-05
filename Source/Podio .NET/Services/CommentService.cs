@@ -18,7 +18,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/comments/delete-a-comment-22347  </para>
         /// </summary>
         /// <param name="commentId"></param>
-        public void DeleteComment(int commentId)
+        public void DeleteComment(long commentId)
         {
             string url = string.Format("/comment/{0}", commentId);
             _podio.Delete<dynamic>(url);
@@ -30,7 +30,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="commentId"></param>
         /// <returns></returns>
-        public Comment GetComment(int commentId)
+        public Comment GetComment(long commentId)
         {
             string url = string.Format("/comment/{0}", commentId);
             return _podio.Get<Comment>(url);
@@ -44,7 +44,7 @@ namespace PodioAPI.Services
         /// <param name="type"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<Comment> GetCommentsOnObject(string type, int id)
+        public List<Comment> GetCommentsOnObject(string type, long id)
         {
             string url = string.Format("/comment/{0}/{1}/", type, id);
             return _podio.Get<List<Comment>>(url);
@@ -74,8 +74,8 @@ namespace PodioAPI.Services
         /// </param>
         /// <param name="hook">todo: describe hook parameter on AddCommentToObject</param>
         /// <returns></returns>
-        public int AddCommentToObject(string type, int id, string text, string externalId = null,
-            List<int> fileIds = null, string embedUrl = null, int? embedId = null, bool alertInvite = false,
+        public long AddCommentToObject(string type, long id, string text, string externalId = null,
+            List<long> fileIds = null, string embedUrl = null, long? embedId = null, bool alertInvite = false,
             bool silent = false, bool hook = true)
         {
             CommentCreateUpdateRequest comment = new CommentCreateUpdateRequest
@@ -106,13 +106,13 @@ namespace PodioAPI.Services
         /// </param>
         /// <param name="hook">todo: describe hook parameter on AddCommentToObject</param>
         /// <returns></returns>
-        public int AddCommentToObject(string type, int id, CommentCreateUpdateRequest comment, bool alertInvite = false,
+        public long AddCommentToObject(string type, long id, CommentCreateUpdateRequest comment, bool alertInvite = false,
             bool silent = false, bool hook = true)
         {
             string url = string.Format("/comment/{0}/{1}/", type, id);
             url = Podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook, null, alertInvite));
             dynamic response = _podio.Post<dynamic>(url, comment);
-            return (int) response["comment_id"];
+            return (long) response["comment_id"];
         }
 
         /// <summary>
@@ -129,8 +129,8 @@ namespace PodioAPI.Services
         ///     The id of an embedded link that has been created with the Add an embed operation in the Embed
         ///     area
         /// </param>
-        public void UpdateComment(int commentId, string text, string externalId = null, List<int> fileIds = null,
-            string embedUrl = null, int? embedId = null)
+        public void UpdateComment(long commentId, string text, string externalId = null, List<long> fileIds = null,
+            string embedUrl = null, long? embedId = null)
         {
             var requestData = new CommentCreateUpdateRequest
             {
@@ -149,7 +149,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="commentId"></param>
         /// <param name="comment"></param>
-        public void UpdateComment(int commentId, CommentCreateUpdateRequest comment)
+        public void UpdateComment(long commentId, CommentCreateUpdateRequest comment)
         {
             string url = string.Format("/comment/{0}", commentId);
             _podio.Put<dynamic>(url, comment);

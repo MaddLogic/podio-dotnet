@@ -51,7 +51,7 @@ namespace PodioAPI.Services
         ///     "file" and  "profile"
         /// </param>
         /// <returns></returns>
-        public List<SearchResult> SearchInApp(int appId, string query, int? limit = null, int offset = 0,
+        public List<SearchResult> SearchInApp(long appId, string query, int? limit = null, int offset = 0,
             string refType = null)
         {
             string url = string.Format("/search/app/{0}/", appId);
@@ -81,7 +81,7 @@ namespace PodioAPI.Services
         /// <param name="highlights"></param>
         /// <param name="searchFields">Comma seperated</param>
         /// <returns></returns>
-        public SearchResultV2 SearchInAppV2(int appId, string query, int? limit = null, int offset = 0,
+        public SearchResultV2 SearchInAppV2(long appId, string query, int? limit = null, int offset = 0,
             string refType = null, bool counts = false, bool highlights = false, string searchFields = null)
         {
             string url = string.Format("/search/app/{0}/v2/", appId);
@@ -112,7 +112,7 @@ namespace PodioAPI.Services
         ///     "file" and  "profile"
         /// </param>
         /// <returns></returns>
-        public List<SearchResult> SearchInOrganization(int orgId, string query, int? limit = null, int offset = 0,
+        public List<SearchResult> SearchInOrganization(long orgId, string query, int? limit = null, int offset = 0,
             string refType = null)
         {
             string url = string.Format("/search/org/{0}/", orgId);
@@ -140,7 +140,7 @@ namespace PodioAPI.Services
         ///     "file" and  "profile"
         /// </param>
         /// <returns></returns>
-        public List<SearchResult> SearchInSpace(int spaceId, string query, int? limit = null, int offset = 0,
+        public List<SearchResult> SearchInSpace(long spaceId, string query, int? limit = null, int offset = 0,
             string refType = null)
         {
             string url = string.Format("/search/space/{0}/", spaceId);

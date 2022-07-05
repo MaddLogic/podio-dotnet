@@ -88,7 +88,7 @@ namespace PodioAPI.Utils.ApplicationFields
         ///     The id of the field to receive the value from. only when type is "field"
         /// </summary>
         [JsonProperty("field_id", NullValueHandling = NullValueHandling.Ignore)]
-        public int? FieldId { get; set; }
+        public long? FieldId { get; set; }
 
         /// <summary>
         ///     The id of the field to receive the value from, only when type is "number"
@@ -100,13 +100,13 @@ namespace PodioAPI.Utils.ApplicationFields
         ///     The app reference field, only when type is "reference" , "outgoing_reference"
         /// </summary>
         [JsonProperty("reference_field_id", NullValueHandling = NullValueHandling.Ignore)]
-        public int? ReferenceField_id { get; set; }
+        public long? ReferenceField_id { get; set; }
 
         /// <summary>
         ///     The id of the value field on the related app
         /// </summary>
         [JsonProperty("value_field_id", NullValueHandling = NullValueHandling.Ignore)]
-        public int? ValueFieldId { get; set; }
+        public long? ValueFieldId { get; set; }
 
         /// <summary>
         ///     The aggregation of the related item, either "sum", "average", "min", "max" and "count"

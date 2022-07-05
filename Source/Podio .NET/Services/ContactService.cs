@@ -22,11 +22,11 @@ namespace PodioAPI.Services
         /// <param name="spaceId"></param>
         /// <param name="contact"></param>
         /// <returns>profile_id of the created contact</returns>
-        public int CreateContact(int spaceId, Contact contact)
+        public long CreateContact(long spaceId, Contact contact)
         {
             string url = string.Format("/contact/space/{0}/", spaceId);
             dynamic response = _podio.Post<dynamic>(url, contact);
-            return (int) response["profile_id"];
+            return (long) response["profile_id"];
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="profileId"></param>
         /// <param name="contact"></param>
-        public void UpdateContact(int profileId, Contact contact)
+        public void UpdateContact(long profileId, Contact contact)
         {
             string url = string.Format("/contact/{0}", profileId);
             _podio.Put<dynamic>(url, contact);
@@ -46,7 +46,7 @@ namespace PodioAPI.Services
         ///     <para>Podio API Reference: https://developers.podio.com/doc/contacts/delete-contact-s-60560 </para>
         /// </summary>
         /// <param name="profileIds"></param>
-        public void DeleteContacts(int[] profileIds)
+        public void DeleteContacts(long[] profileIds)
         {
             string profileIdCSV = Utilities.ArrayToCSV(profileIds);
             string url = string.Format("/contact/{0}", profileIdCSV);
@@ -88,11 +88,11 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="SpaceId"></param>
         /// <returns></returns>
-        public int GetSpaceContactTotals(int SpaceId)
+        public long GetSpaceContactTotals(long SpaceId)
         {
             string url = string.Format("/contact/space/{0}/totals/space", SpaceId);
             dynamic response = _podio.Get<dynamic>(url);
-            return (int) response["total"];
+            return (long) response["total"];
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public Contact GetUserContact(int userId)
+        public Contact GetUserContact(long userId)
         {
             string url = string.Format("/contact/user/{0}", userId);
             return _podio.Get<Contact>(url);
@@ -113,7 +113,7 @@ namespace PodioAPI.Services
         /// <param name="profileIds"></param>
         /// <param name="spaceId">If set the role and removable property will be set in the context of the given space.</param>
         /// <returns></returns>
-        public List<Contact> GetContactsByProfileId(int[] profileIds, int? spaceId = null)
+        public List<Contact> GetContactsByProfileId(long[] profileIds, long? spaceId = null)
         {
             string profileIdCSV = Utilities.ArrayToCSV(profileIds);
             string url = string.Format("/contact/{0}/v2", profileIdCSV);
@@ -205,7 +205,7 @@ namespace PodioAPI.Services
         /// </param>
         /// <param name="type">Determines the way the result is returned. Valid options are "mini" and "full". Default value: mini</param>
         /// <returns></returns>
-        public List<Contact> GetOrganizationContacts(int orgId, Dictionary<string, string> fields = null,
+        public List<Contact> GetOrganizationContacts(long orgId, Dictionary<string, string> fields = null,
             string contactType = "user", string externalId = null, int? limit = null, int? offset = null,
             string required = null, bool excludeSelf = true, string order = "name", string type = "mini")
         {
@@ -256,7 +256,7 @@ namespace PodioAPI.Services
         /// </param>
         /// <param name="type">Determines the way the result is returned. Valid options are "mini" and "full". Default value: mini</param>
         /// <returns></returns>
-        public List<Contact> GetSpaceContacts(int spaceId, Dictionary<string, string> fields = null,
+        public List<Contact> GetSpaceContacts(long spaceId, Dictionary<string, string> fields = null,
             string contactType = "user", string externalId = null, int? limit = null, int? offset = null,
             string required = null, bool excludeSelf = true, string order = "name", string type = "mini")
         {
@@ -295,7 +295,7 @@ namespace PodioAPI.Services
         ///     Default value: name
         /// </param>
         /// <returns></returns>
-        public List<Contact> GetSpaceContactsOnApp(int appId, Dictionary<string, string> fields = null,
+        public List<Contact> GetSpaceContactsOnApp(long appId, Dictionary<string, string> fields = null,
             int? limit = null, int? offset = null, string order = "name")
         {
             string url = string.Format("/contact/app/{0}/", appId);
@@ -322,7 +322,7 @@ namespace PodioAPI.Services
         /// <param name="userId"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public List<string> GetUserContactField(int userId, string key)
+        public List<string> GetUserContactField(long userId, string key)
         {
             string url = string.Format("/contact/user/{0}/{1}", userId, key);
             return _podio.Get<List<string>>(url);
@@ -334,7 +334,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="profileId"></param>
         /// <returns></returns>
-        public string GetvCard(int profileId)
+        public string GetvCard(long profileId)
         {
             string url = string.Format("/contact/{0}/vcard", profileId);
             var options = new Dictionary<string, bool>
@@ -351,7 +351,7 @@ namespace PodioAPI.Services
         /// <param name="profileId"></param>
         /// <param name="key"></param>
         /// <param name="value">The new value for the profile field.</param>
-        public void UpdateContactField(int profileId, string key, string value)
+        public void UpdateContactField(long profileId, string key, string value)
         {
             string url = string.Format("/contact/{0}/{1}", profileId, key);
             dynamic requestData = new

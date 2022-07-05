@@ -17,7 +17,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="actionId"></param>
         /// <returns></returns>
-        public Action GetAction(int actionId)
+        public Action GetAction(long actionId)
         {
             string url = string.Format("/action/{0}", actionId);
             return _podio.Get<Action>(url);

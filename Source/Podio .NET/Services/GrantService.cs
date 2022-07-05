@@ -59,7 +59,7 @@ namespace PodioAPI.Services
         /// <param name="refType"></param>
         /// <param name="refId"></param>
         /// <param name="userId"></param>
-        public void RemoveGrant(string refType, dynamic refId, int userId)
+        public void RemoveGrant(string refType, dynamic refId, long userId)
         {
             string url = string.Format("/grant/{0}/{1}/{2}", refType, refId, userId);
             _podio.Delete<dynamic>(url);
@@ -72,7 +72,7 @@ namespace PodioAPI.Services
         /// <param name="spaceId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public List<Grant> GetGrantsToUserOnSpace(int spaceId, int userId)
+        public List<Grant> GetGrantsToUserOnSpace(long spaceId, long userId)
         {
             string url = string.Format("/grant/space/{0}/user/{0}/", spaceId, userId);
             return _podio.Get<List<Grant>>(url);
@@ -84,7 +84,7 @@ namespace PodioAPI.Services
         /// </summary>
         /// <param name="orgId"></param>
         /// <returns></returns>
-        public List<Grant> GetOwnGrantsOnOrg(int orgId)
+        public List<Grant> GetOwnGrantsOnOrg(long orgId)
         {
             string url = string.Format("/grant/org/{0}/own/", orgId);
             return _podio.Get<List<Grant>>(url);
@@ -100,7 +100,7 @@ namespace PodioAPI.Services
         /// <param name="action">The action required of the people, either "view", "comment" or "rate", or left out</param>
         /// <param name="message">Any special message to the users</param>
         /// <returns></returns>
-        public CreatedGrant CreateGrant(string refType, int refId, List<Ref> people, string action,
+        public CreatedGrant CreateGrant(string refType, long refId, List<Ref> people, string action,
             string message = null)
         {
             string url = string.Format("/grant/{0}/{1}", refType, refId);
