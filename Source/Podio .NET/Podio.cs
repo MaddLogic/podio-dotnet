@@ -24,6 +24,8 @@ namespace PodioAPI
         public int RateLimit { get; private set; }
         public int RateLimitRemaining { get; private set; }
         protected virtual string ApiUrl { get; set; }
+        protected virtual string AuthUrl { get; set; }
+
 
         private static readonly HttpClient HttpClient;
 
@@ -42,7 +44,8 @@ namespace PodioAPI
         {
             ClientId = clientId;
             ClientSecret = clientSecret;
-            ApiUrl = "https://api.podio.com:443";
+            ApiUrl = "https://api.podio.com";
+            AuthUrl = "https://podio.com";
 
             AuthStore = authStore ?? new NullAuthStore();
         }
@@ -73,6 +76,7 @@ namespace PodioAPI
             if (isOAuthTokenRequest)
             {
                 request.Content = new FormUrlEncodedContent(requestData);
+                request.RequestUri = new Uri(this.AuthUrl + url);
             }
             else
             {
@@ -123,9 +127,17 @@ namespace PodioAPI
             // for retry in case of failure.
             var requestCopy = CreateHttpRequest(httpRequest.RequestUri.OriginalString, httpRequest.Method, true, isFileDownload);
             await Utility.CopyHttpRequestMessageContent(httpRequest, requestCopy);
+            HttpResponseMessage response;
+            try
+            {
+                response = await HttpClient.SendAsync(httpRequest);
 
-            var response = await HttpClient.SendAsync(httpRequest);
-
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
             // Get rate limits from header values
             if (response.Headers.Contains("X-Rate-Limit-Remaining"))
                 RateLimitRemaining = int.Parse(response.Headers.GetValues("X-Rate-Limit-Remaining").First());
@@ -216,10 +228,14 @@ namespace PodioAPI
                 Method = httpMethod
             };
 
-            if (isFileDownload)
-                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-            else
-                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //if (isFileDownload)
+            //    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+            //else
+            //    request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
+            request.Headers.Connection.Add("keep-alive");
 
             if (addAuthorizationHeader)
             {
@@ -278,16 +294,28 @@ namespace PodioAPI
         /// <param name="appId">AppId</param>
         /// <param name="appToken">AppToken</param>
         /// <returns>PodioOAuth object with OAuth data</returns>
-        public async Task<PodioOAuth> AuthenticateWithApp(long appId, string appToken)
+        public async Task<PodioOAuth> AuthenticateWithApp(string appId, string appToken)
         {
             var authRequest = new Dictionary<string, string>()
             {
-                {"app_id", appId.ToString()},
+                {"app_id", appId},
                 {"app_token", appToken},
                 {"grant_type", "app"}
             };
             return await Authenticate(authRequest).ConfigureAwait(false);
         }
+
+        public async Task<PodioOAuth> AuthenticateClient(string clientId, string appToken)
+        {
+            var authRequest = new Dictionary<string, string>()
+            {
+                {"client_id", clientId},
+                {"app_token", appToken},
+                {"response_type", "token"}
+            };
+            return await Authorize(authRequest).ConfigureAwait(false);
+        }
+
 
         /// <summary>
         ///     Authenticate with username and password
@@ -302,7 +330,8 @@ namespace PodioAPI
             {
                 {"username", username},
                 {"password", password},
-                {"grant_type", "password"}
+                {"grant_type", "password"},
+                {"response_type", "token"}
             };
             return await Authenticate(authRequest).ConfigureAwait(false);
         }
@@ -371,6 +400,18 @@ namespace PodioAPI
             attributes["client_secret"] = ClientSecret;
 
             PodioOAuth podioOAuth = await Post<PodioOAuth>("/oauth/token", attributes, true).ConfigureAwait(false);
+            this.OAuth = podioOAuth;
+            AuthStore.Set(podioOAuth);
+
+            return podioOAuth;
+        }
+
+        private async Task<PodioOAuth> Authorize(Dictionary<string, string> attributes)
+        {
+            attributes["client_id"] = ClientId;
+            attributes["client_secret"] = ClientSecret;
+
+            PodioOAuth podioOAuth = await Get<PodioOAuth>("/oauth/authorize", attributes, false).ConfigureAwait(false);
             this.OAuth = podioOAuth;
             AuthStore.Set(podioOAuth);
 

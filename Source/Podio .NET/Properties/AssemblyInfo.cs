@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("Podio.NET")]
-[assembly: AssemblyDescription("Podio API C# Client")]
+[assembly: AssemblyDescription("Podio API C# Client - MaddLogic Fork")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("https://podio.com")]
+[assembly: AssemblyCompany("https://www.maddlogic.com")]
 [assembly: AssemblyProduct("PodioAPI")]
-[assembly: AssemblyCopyright("Copyright ©  Podio 2014")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 
-[assembly: Guid("f9ce1cc9-2090-41c7-b1c0-f34846bddbda")]
+[assembly: Guid("e7de7328-63f3-4813-b2cf-af38e1604438")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -36,4 +36,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
