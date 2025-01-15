@@ -40,3 +40,6 @@ Source/packages/*
  
 Source/.vs/* 
 project.lock.json
+/Source/PodioUnitTests/testcredentials.txt
+/Source/PodioUnitTests/.vs
+/Source/Podio .NET/.vs

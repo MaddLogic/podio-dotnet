@@ -411,7 +411,7 @@ namespace PodioAPI
             attributes["client_id"] = ClientId;
             attributes["client_secret"] = ClientSecret;
 
-            PodioOAuth podioOAuth = await Get<PodioOAuth>("/oauth/authorize", attributes, false).ConfigureAwait(false);
+            PodioOAuth podioOAuth = await Get<PodioOAuth>(AuthUrl +"/oauth/authorize", attributes, false).ConfigureAwait(false);
             this.OAuth = podioOAuth;
             AuthStore.Set(podioOAuth);
 
